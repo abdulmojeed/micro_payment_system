@@ -1,101 +1,92 @@
-<?php // adduser.php
-// start with the PHP code
-$username = $password= $firstname = $lastname = "";
-if (isset($_POST['id'])) $id = $_POST['id'];
-else $id = "(Not entered)";
-
-if (isset($_POST['username']))
-	$username = fix_string($_POST['username']);
-if (isset($_POST['password']))
-	$password = fix_string($_POST['password']);
-if (isset($_POST['firstname']))
-	$firstname = fix_string($_POST['firstname']);
-if (isset($_POST['lastname']))
-	$lastname = fix_string($_POST['lastname']);	
-if (isset($_POST['fail']))
-	$fail = fix_string($_POST['fail']);
-
-function validate($fail){
-$fail = validate_username($username);
-$fail .=validate_password($password);
-$fail .=validate_firstname($firstname);
-$fail .=validate_lastname($lastname);
-
-echo "<html><head><title>An Example Form</title>";
-if ($fail == ""){
-	echo "</head><body>Form data successfully validated: $username, $password, $firstname, $lastname.</body><html>";
-	// 
-	
-	exit;
-}
-}
-// 
-
+<?php 
 echo <<<_END
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Add New User &middot; Twitter Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="abdul">
 
-<! -- The HTML section -->
-<html><head><title>Add User Form</title>
-<style>.signup{border: 1px solid #999999;
-		font: normal 18px helvetica; color:#444444; }</style>
-		<style>
-			#object1{
-				position 	:fixed;
-				background	:pink;
-				width		:100px;
-				height		:500px;
-				top			:100px;
-				left		:0px;}
-			
-			#object2{
-				position 	:relative;
-				background	:lightblue;
-				width		:500px;
-				height		:100px;
-				top			:-2px;
-				left		:100px;}
-			
-			#object3{
-				position 	:fixed;
-				background	:silver;
-				width		:100px;
-				height		:100px;
-				top			:100px;
-				left		:236px;}
-			
-			#object4{
-				position 	:relative;
-				background	:lightgrey;
-				width		:500px;
-				height		:500px;
-				top			:0px;
-				left		:100px;}
-		</style>		
-			
-		<script>
-		function validate(form) {
-		fail = validateUsername(form.username.value)
-		fail += validatePassword(form.password.value)
-		fail += validateFirstname(form.firstname.value)
-		fail += validateLastname(form.lastname.value)
-		if (fail == "") return true
-		else {alert(fail); return false}
-		}
-		</script></head><body>
-		<div id='object1'></div>
-	<div id='object2'><h2>Sidiflex Model School, Karshi</h2></div>
-		<div id='object4'>	<table class = "signup" border="0" cellpadding="10"
-			cellspacing="15" gbcolor="#eeeeee">
-		<th colspan="20" align="cemter">Add New User Form</th>
+    <!-- Le styles -->
+    <link href="./bootstrap/bootstrap-3.3.2-dist/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+		
+      }
 
-	
-	<form method="post" action="adduser.php"
-			onSubmit="return validate(this)">
-			<tr><td>First Name</td><td><input type="text" maxlength="32" name="firstname" value="$firstname" /></td>
-			</tr><tr><td>Last Name</td><td><input type="text" maxlength="32" name="lastname" value="$lastname" /></td>
-			</tr><tr><td>Username</td><td><input type="text" maxlength="32" name="username" value="$username"/></td>
-			</tr><tr><td>Password</td><td><input type="text" maxlength="32" name="password" value="$password"/></td>
-			</tr><tr><td colspan="20" align="center">
-				<input type="submit" value="Add User" /></td>
-			</tr></form></table></div>
+      .form-signin {
+		max-width: 400px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+	  .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+
+    </style>
+    <link href="./bootstrap/bootstrap-3.3.2-dist/css/bootstrap-theme.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./wamp/www/download.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin">
+        <h3 class="form-signin-heading" align="center">Add New User</h3>
+        <h3 class="form-signin-heading" align="center"> </h3>
+
+        <label >First Name: </label>
+		<input type="text" class="input-block-level" placeholder="First Name">
+		<label >Last Name: </label>
+		<input type="text" class="input-block-level" placeholder="Last Name">
+		<label >  Username: </label>
+		<input type="text" class="input-block-level" placeholder="Username">
+		<label >  Password: </label>
+        <input type="password" class="input-block-level" placeholder="Password">
+     	<button class="btn btn-large btn-primary" type="submit" style="width: 100px; float: left;">Sign in</button>
+		<button class="btn btn-large btn-secondary" type="submit" style="width: 100px; float: right">Cancel</button>
+		<h2> </h2>
+      </form>
+
+    </div> <!-- /container -->
+
+    <script src="./bootstrap/bootstrap-3.3.2-dist/js/jquery-1.11.2.js"></script>
+    <script src="./bootstrap/bootstrap-3.3.2-dist/js/bootstrap.js"></script>
+    <s
+  </body>
+</html>
 _END;
 ?>
